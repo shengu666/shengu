@@ -15,7 +15,11 @@
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 //允许跨域
-//header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Headers:Authorization');
+header("Access-Control-Allow-Methods: GET, POST, DELETE");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Cache-Control,Authorization");
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
 define('APP_DEBUG',True);
