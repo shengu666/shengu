@@ -32,12 +32,14 @@ class RegisterController extends Controller {
         $data['pswd'] = $item['pswd'];
         $data['time'] = time();
         $data['type'] = 2;
+        $data['checked'] = 0;
         $result = $user->add($data);
 
         if($result > 0){
             $res['data']['code'] = 1;
             $res['data']['info']['type'] = 2;
-            $res['msg'] = '注册成功';
+            $res['data']['info']['checked'] = 0;
+            $res['msg'] = '注册成功,等待审核';
         }else{
             $res['data']['code'] = 0;
             $res['msg'] = '注册失败！';

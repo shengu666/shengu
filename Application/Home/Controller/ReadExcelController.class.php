@@ -5,22 +5,115 @@ Vendor('PHPExcel.PHPExcel');
 Vendor('PHPExcel.PHPExcel.Writer.Excel2007');
 
 class ReadExcelController extends Controller {
+	public $res = [
+                'data' => [
+                        'list' => [],
+                        'pageInfo' => [
+                                'page' => 1,
+                                'cost' => 0,
+                                'pageSize' => 10
+                        ],
+                ],
+                'code' => 1,
+                'msg' => ''
+        ];
     public function index(){
+    	$res = $this->res;
+    	$plat = $_GET['plat'];
+    	$type = $_GET['type'];
+    	$file = $_GET['file'];
     	$data = [];
-    	$d = $this->init($this->readExcel(0),1);
-    	//array_push($data,$this->init($this->readExcel(0),1));
-    	/*$blog = M('blog');
-    	$blogPro = M('blogproviders');
-*/    	/*$blog->addAll($d[0]);
-    	$blogPro->addAll($d[1]);*/
-    	//array_push($data,$this->init($this->readExcel(1),2));
-    	//array_push($data,$this->init($this->readExcel(2),3));
-    	echo json_encode($d);
+
+    	if($type == 0){
+	    	if($plat == 'weibo'){
+	    		$data = $this->init($this->readExcel(0,'N',$file),1);
+	    	}else if($plat == 'weixin'){
+	    		$data = $this->init($this->readExcel(0,'Q',$file),2);
+	    	}else if($plat == 'toutiao'){
+	    		$data = $this->init($this->readExcel(0,'K',$file),3);
+	    	}
+
+	    	if(count($data) == 0){
+	            $res['code'] = 0;
+	            $res['msg'] = '没有数据';
+	            echo json_encode($res);
+	            return;
+	        }else{
+	            if($_GET['page']){
+	                $page = $_GET['page'];
+	                $pageItem = ($page - 1) * 10;
+	            }else{
+	                $page = 1;
+	                $pageItem = 0;
+	            }
+	            $res['code'] = 1;
+	            $res['data']['list'] = array_slice($data[2],$pageItem,10);            
+	            $res['data']['pageInfo']['page'] = $page;            
+	            $res['data']['pageInfo']['cost'] = count($data);            
+	            $res['msg'] = 'success';
+	            echo json_encode($res);
+	        }
+    	}else if($type == 1){
+    		if($plat == 'weibo'){
+	    		$data = $this->init($this->readExcel(0,'N',$file),1);
+	    		$blog = M('blog');
+		    	$blogPro = M('blogproviders');
+		    	$blog->startTrans();	//开启事务
+
+		    	$result1 = $blog->addAll($data[0]);
+		    	$result2 = $blogPro->addAll($data[1]);
+
+		    	$blogDel = "delete from blog where id not in (select id from (select max(b.id) as id from blog b group by b.name) b)";
+		    	$blogProDel = "delete from blogproviders where cid not in (select cid from (select max(b.cid) as cid from blogproviders b group by b.pid) b)";
+		    	$result3 = $blog->execute($blogDel);
+		    	$result4 = $blogPro->execute($blogProDel);
+	    	}else if($plat == 'weixin'){
+	    		$data = $this->init($this->readExcel(0,'Q',$file),2);
+	    		$we = M('wechat');
+		    	$wePro = M('wechatproviders');
+		    	$we->startTrans();	//开启事务
+
+		    	$result1 = $we->addAll($data[0]);
+		    	$result2 = $wePro->addAll($data[1]);
+
+		    	$weDel = "delete from wechat where id not in (select id from (select max(b.id) as id from wechat b group by b.name) b)";
+		    	$weProDel = "delete from wechatproviders where cid not in (select cid from (select max(b.cid) as cid from wechatproviders b group by b.pid) b)";
+		    	$result3 = $we->execute($weDel);
+		    	$result4 = $wePro->execute($weProDel);
+	    	}else if($plat == 'toutiao'){
+	    		$data = $this->init($this->readExcel(0,'K',$file),3);
+	    		$tou = M('toutiao');
+		    	$touPro = M('toutiaoproviders');
+		    	$tou->startTrans();	//开启事务
+
+		    	$result1 = $tou->addAll($data[0]);
+		    	$result2 = $touPro->addAll($data[1]);
+
+		    	$touDel = "delete from toutiao where id not in (select id from (select max(b.id) as id from toutiao b group by b.name) b)";
+		    	$touProDel = "delete from toutiaoproviders where cid not in (select cid from (select max(b.cid) as cid from toutiaoproviders b group by b.pid) b)";
+		    	$result3 = $tou->execute($touDel);
+		    	$result4 = $touPro->execute($touProDel);
+	    	}
+
+	    	if($result1 >= 0 && $result2 >= 0 && $result3 >= 0 && $result4 >= 0){
+	    		$blog->commit();
+	    		$res['code'] = 1;
+	    		$res['msg'] = 'success';
+	    		echo json_encode($res);
+	    	}else{
+	    		$blog->rollback();
+	    		$res['code'] = 0;
+	    		$res['msg'] = '数据库写入失败';
+	    		echo json_encode($res);
+	    	}
+    	}
+
     }
 
     public function init($data,$type){
     	$item = [];
     	$item2 = [];
+    	$item3 = [];
     	$result = [];
     	if($type == 1){				//微博
     		foreach ($data as $value) {
@@ -33,8 +126,8 @@ class ReadExcelController extends Controller {
 	    		$d['secondPri'] = $value[4];
 	    		$d['proFirstPri'] = $value[5];
 	    		$d['proSecondPri'] = $value[6];
-	    		$d['disFirstPri'] = $value[5] * $value[9];
-	    		$d['disSecondPri'] = $value[6] * $value[9];
+	    		$d['disFirstPri'] = $value[3] * $value[9];
+	    		$d['disSecondPri'] = $value[4] * $value[9];
 	    		$d['discount'] = $value[9];
 	    		$d['validTime'] = $value[11];
 	    		$d['provider'] = $value[12];
@@ -42,6 +135,7 @@ class ReadExcelController extends Controller {
 	    		$d['pid'] = $value[0]."_".$value[12];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
+	    		array_push($item3, array_merge($t,$d));
 	    	}
     	}else if($type == 2){		//微信
     		foreach ($data as $value) {
@@ -53,10 +147,10 @@ class ReadExcelController extends Controller {
 	    		
 	    		$d['firstReadPri'] = $value[4];
 	    		$d['secondReadPri'] = $value[5];
-	    		$d['otherReadPri'] = $value[6];
+	    		$d['otherReadPri'] = $value[5] * 0.8;
 	    		$d['disFirstReadPri'] = $value[4] * $value[10];
 	    		$d['disSecondReadPri'] = $value[5] * $value[10];
-	    		$d['disOtherReadPri'] = $value[6] * $value[10];
+	    		$d['disOtherReadPri'] = $value[5] * 0.8 * $value[10];
 	    		$d['discount'] = $value[10];
 	    		$d['publicNum'] = $value[11];
 	    		$d['publicTime'] = $value[12];
@@ -66,6 +160,7 @@ class ReadExcelController extends Controller {
 	    		$d['pid'] = $value[0]."_".$value[15];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
+	    		array_push($item3, array_merge($t,$d));
 	    	}
     	}else if($type == 3){		//头条
 	    	foreach ($data as $value) {
@@ -84,25 +179,24 @@ class ReadExcelController extends Controller {
 	    		$d['pid'] = $value[0]."_".$value[9];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
+	    		array_push($item3, array_merge($t,$d));
 	    	}
     	}
     	array_push($result, $item);
     	array_push($result, $item2);
+    	array_push($result, $item3);
 	    return $result;
     }
 
-    public function readExcel($sheet){
+    public function readExcel($sheet,$end,$file){
     	$PHPExcel = new \PHPExcel();
 		/**默认用excel2007读取excel，若格式不对，则用之前的版本进行读取*/
 		$PHPReader = new \PHPExcel_Reader_Excel2007();
     	if(!$sheet){
     		$sheet = 0;
     	}
-
-    	/**对excel里的日期进行格式转化*/
 		
-
-		$filePath = './Public/Uploads/test.xlsx';
+		$filePath = "./Public/Uploads/".$file;
 
 		if(!$PHPReader->canRead($filePath)){
 		    $PHPReader = new PHPExcel_Reader_Excel5();
@@ -129,7 +223,7 @@ class ReadExcelController extends Controller {
 		    	/*if(empty($val)){
 		    		break;
 		    	}*/
-		    	if($currentColumn == 'N'){
+		    	if($currentColumn == $end){
 		    		break;
 		    	}
 		    	array_push($item, $val);
