@@ -56,47 +56,32 @@ class ReadExcelController extends Controller {
     	}else if($type == 1){
     		if($plat == 'weibo'){
 	    		$data = $this->init($this->readExcel(0,'N',$file),1);
-	    		$blog = M('blog');
-		    	$blogPro = M('blogproviders');
-		    	$blog->startTrans();	//开启事务
-
-		    	$result1 = $blog->addAll($data[0]);
-		    	$result2 = $blogPro->addAll($data[1]);
-
-		    	$blogDel = "delete from blog where id not in (select id from (select max(b.id) as id from blog b group by b.name) b)";
-		    	$blogProDel = "delete from blogproviders where cid not in (select cid from (select max(b.cid) as cid from blogproviders b group by b.pid) b)";
-		    	$result3 = $blog->execute($blogDel);
-		    	$result4 = $blogPro->execute($blogProDel);
+	    		$M = M('blog');
+		    	$P = M('blogproviders');
+		    	$MD = "delete from blog where id not in (select id from (select max(b.id) as id from blog b group by b.name) b)";
+		    	$PD = "delete from blogproviders where cid not in (select cid from (select max(b.cid) as cid from blogproviders b group by b.pid) b)";
 	    	}else if($plat == 'weixin'){
 	    		$data = $this->init($this->readExcel(0,'Q',$file),2);
 	    		$we = M('wechat');
 		    	$wePro = M('wechatproviders');
-		    	$we->startTrans();	//开启事务
 
-		    	$result1 = $we->addAll($data[0]);
-		    	$result2 = $wePro->addAll($data[1]);
-
-		    	$weDel = "delete from wechat where id not in (select id from (select max(b.id) as id from wechat b group by b.name) b)";
-		    	$weProDel = "delete from wechatproviders where cid not in (select cid from (select max(b.cid) as cid from wechatproviders b group by b.pid) b)";
-		    	$result3 = $we->execute($weDel);
-		    	$result4 = $wePro->execute($weProDel);
+		    	$MD = "delete from wechat where id not in (select id from (select max(b.id) as id from wechat b group by b.name) b)";
+		    	$PD = "delete from wechatproviders where cid not in (select cid from (select max(b.cid) as cid from wechatproviders b group by b.pid) b)";
 	    	}else if($plat == 'toutiao'){
 	    		$data = $this->init($this->readExcel(0,'K',$file),3);
 	    		$tou = M('toutiao');
 		    	$touPro = M('toutiaoproviders');
-		    	$tou->startTrans();	//开启事务
 
-		    	$result1 = $tou->addAll($data[0]);
-		    	$result2 = $touPro->addAll($data[1]);
-
-		    	$touDel = "delete from toutiao where id not in (select id from (select max(b.id) as id from toutiao b group by b.name) b)";
-		    	$touProDel = "delete from toutiaoproviders where cid not in (select cid from (select max(b.cid) as cid from toutiaoproviders b group by b.pid) b)";
-		    	$result3 = $tou->execute($touDel);
-		    	$result4 = $touPro->execute($touProDel);
+		    	$MD = "delete from toutiao where id not in (select id from (select max(b.id) as id from toutiao b group by b.name) b)";
+		    	$PD = "delete from toutiaoproviders where cid not in (select cid from (select max(b.cid) as cid from toutiaoproviders b group by b.pid) b)";
 	    	}
-
+	    	$M->startTrans();	//开启事务
+	    	$result1 = $M->addAll($data[0]);
+	    	$result2 = $P->addAll($data[1]);
+	    	$result3 = $M->execute($MD);
+	    	$result4 = $P->execute($PD);
 	    	if($result1 >= 0 && $result2 >= 0 && $result3 >= 0 && $result4 >= 0){
-	    		$blog->commit();
+	    		$M->commit();
 	    		$res['code'] = 1;
 	    		$res['msg'] = 'success';
 	    		echo json_encode($res);
@@ -106,6 +91,8 @@ class ReadExcelController extends Controller {
 	    		$res['msg'] = '数据库写入失败';
 	    		echo json_encode($res);
 	    	}
+
+
     	}
 
     }
@@ -126,8 +113,8 @@ class ReadExcelController extends Controller {
 	    		$d['secondPri'] = $value[4];
 	    		$d['proFirstPri'] = $value[5];
 	    		$d['proSecondPri'] = $value[6];
-	    		$d['disFirstPri'] = $value[3] * $value[9];
-	    		$d['disSecondPri'] = $value[4] * $value[9];
+	    		$d['disFirstPri'] = $value[5] * $value[9];
+	    		$d['disSecondPri'] = $value[6] * $value[9];
 	    		$d['discount'] = $value[9];
 	    		$d['validTime'] = $value[11];
 	    		$d['provider'] = $value[12];

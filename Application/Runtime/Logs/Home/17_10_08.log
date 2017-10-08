@@ -1,0 +1,61 @@
+[ 2017-10-08T20:32:17+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 20 行.
+NOTIC: [8] Undefined variable: pageItem F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 100 行.
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10' at line 1
+ [ SQL语句 ] : select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit ,10
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10' at line 1
+ [ SQL语句 ] : select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit ,10
+
+[ 2017-10-08T20:32:52+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 20 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 27 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.2770s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 109 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-08T20:34:51+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 20 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 27 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.2310s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 111 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2017-10-08T20:35:13+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 20 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 27 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.2210s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 111 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+

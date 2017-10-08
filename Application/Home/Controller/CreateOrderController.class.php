@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 
-class SingleController extends Controller {
+class CreateOrderController extends Controller {
 	public $res = [
                 'data' => [
                     'list' => [],
@@ -13,14 +13,12 @@ class SingleController extends Controller {
     public function index(){
         $res = $this->res;
         $data = [];
-        $_GET['plat'] = ['111'];
-        if(count($_GET['plat']) > 0){
+        $_POST['plat'] = ['111'];
+        if(count($_POST) > 0){
             $plat = $_GET['plat'];
             $name = $_GET['name'];
-            $provider = $_GET['provider'];
             $plat = 'weibo';
             $name = '娱乐小主';
-            $provider = '小主';
             if($name && strlen($name) > 0){
                 if($plat == 'weibo'){
                     $blog_sql = "select * from blog a,blogproviders b where a.name='".$name."' and b.pid like concat('%','".$name."','_%') group by b.pid order by b.disFirstPri asc";
@@ -31,11 +29,6 @@ class SingleController extends Controller {
                 }else if($plat == 'toutiao'){
                     $toutiao_sql = "select * from toutiao a,toutiaoproviders b where a.name='".$name."' and b.pid like concat('%','".$name."','_%') group by b.pid order by b.discountPrice asc";
                     $data = M()->query($toutiao_sql);
-                }
-                foreach ($data as $key=>$value) {
-                    if($value['provider'] == $provider){
-                        array_splice($data,$key,1);
-                    }
                 }
             }
         }else{

@@ -17,6 +17,13 @@ class ListController extends Controller {
         ];
     public function index(){
         $res = $this->res;
+        if($_GET['page']){
+            $page = $_GET['page'];
+            $pageItem = ($page - 1) * 10;
+        }else{
+            $page = 1;
+            $pageItem = 0;
+        }
         if(count($_GET['plat']) > 0){
             $plat = $_GET['plat'];
             $chlid = $_GET['chlid'];
@@ -51,9 +58,10 @@ class ListController extends Controller {
                     }
                 }
 
-                $blog_sql = "select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc";
-
+                $blog_sql = "select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from blog";
                 $data = M()->query($blog_sql);
+                $count = M()->query($count_sql);
             }else if($plat == 'weixin'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
@@ -68,8 +76,10 @@ class ListController extends Controller {
                     }
                 }
 
-                $wechat_sql = "select * from wechat a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc";
+                $wechat_sql = "select * from wechat a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from wechat";
                 $data = M()->query($wechat_sql);
+                $count = M()->query($count_sql);
             }else if($plat == 'toutiao'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
@@ -85,13 +95,16 @@ class ListController extends Controller {
                     $where .= " and averReadNum > ".$wnum[0]." and averReadNum < ".$wnum[1];
                 }
 
-                $toutiao_sql = "select * from toutiao a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc";
+                $toutiao_sql = "select * from toutiao a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from toutiao";
                 $data = M()->query($toutiao_sql);
+                $count = M()->query($count_sql);
             }
         }else{
-            $blog_sql = "select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc";
+            $blog_sql = "select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit ".$pageItem.",10";
+            $count_sql = "select count(*) as num from blog";
             $data = M()->query($blog_sql);
-
+            $count = M()->query($count_sql);
         }
         if(count($data) == 0){
             $res['code'] = 0;
@@ -106,10 +119,10 @@ class ListController extends Controller {
                 $page = 1;
                 $pageItem = 0;
             }
-            $res['code'] = 1;
-            $res['data']['list'] = array_slice($data,$pageItem,10);            
+            $res['code'] = 1;        
+            $res['data']['list'] = $data;            
             $res['data']['pageInfo']['page'] = $page;            
-            $res['data']['pageInfo']['cost'] = count($data);            
+            $res['data']['pageInfo']['cost'] = $count[0]['num'];            
             $res['msg'] = 'success';
             echo json_encode($res);
         }

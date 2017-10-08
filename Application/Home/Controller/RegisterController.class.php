@@ -1,8 +1,8 @@
 <?php
 namespace Home\Controller;
-use Think\Controller;
+use Home\Controller\MiddleController;
 
-class RegisterController extends Controller {
+class RegisterController extends MiddleController {
     public $res = [
                 'status' => '',
                 'data' => [
