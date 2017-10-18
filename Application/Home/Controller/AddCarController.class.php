@@ -12,22 +12,25 @@ class AddCarController extends Controller {
         $data = [];
         $user = M('shopcar');
         $list = $_POST['list'];
-
         if(count($list) > 0){
             $item = [];
             $user = M('shopcar');
-            foreach ($list as $key => $value) {
-                var_dump($value);
+            $time = time();
+            /*foreach ($list as $key => $value) {
                 if($value['pid'] && $value['plat']){
                     $item['user'] = "root";
                     $item['goods'] = $value['pid'];
-                    $item['time'] = time();
+                    $item['time'] = $time;
                     $item['status'] = 1;
                     $item['type'] = $value['plat'];
                     array_push($data, $item);
                 }
-            }
-            $result = $user->addAll($data);
+            }*/
+            $data['user'] = cookie('shengu_user');
+            $data['time'] = time();
+            $data['status'] = 1;
+            $data['goods'] = json_encode($list);
+            $result = $user->add($data);
         }else{
             $res['code'] = 0;
             $res['msg'] = '失败';

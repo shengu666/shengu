@@ -12,11 +12,11 @@ class CarListController extends Controller {
         ];
     public function index(){
         $res = $this->res;
-        cookie('shengu_user','root');
         if(cookie('shengu_user')){
             $item['user'] = cookie('shengu_user');
+            //$item['status'] = 1;
             $M = M('shopcar');
-            $data = $M->where($item)->order('id desc')->select();
+            $data = $M->where("status != -1")->order('id desc')->select();
         }
         if(count($data) == 0){
             $res['code'] = 0;

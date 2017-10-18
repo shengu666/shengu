@@ -1,0 +1,103 @@
+[ 2017-10-15T15:17:16+08:00 ] ::1 /shengu/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.002500s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.086201s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.086201s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.005000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.015600s ]
+INFO: [ app_end ] --END-- [ RunTime:0.015600s ]
+
+[ 2017-10-15T15:17:29+08:00 ] ::1 /shengu/Home/delCarSingle
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: id F:\wamp\www\shengu\Application\Home\Controller\DelCarSingleController.class.php 第 14 行.
+
+[ 2017-10-15T15:50:37+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.6940s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 117 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+NOTIC: [8] Undefined index: disFirstPri F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 127 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-15T15:51:43+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.6148s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 117 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-15T15:54:50+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.015600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.5992s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 117 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-15T15:55:39+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.015600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.6297s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 117 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+

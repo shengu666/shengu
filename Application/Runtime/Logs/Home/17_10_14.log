@@ -1,0 +1,249 @@
+[ 2017-10-14T14:23:45+08:00 ] ::1 /shengu/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.060001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.060001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.007500s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.007500s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-14T14:24:05+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.015600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 20 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 27 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.2800s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 115 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-14T14:24:50+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-14T14:26:16+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-10-14T14:26:41+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0475s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:27:51+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '0d3d238b089a67e34e39b5abf80db19b'  [ RunTime:0.0025s ]
+
+[ 2017-10-14T14:28:03+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+NOTIC: [8] Undefined variable: a F:\wamp\www\shengu\Application\Home\Controller\MiddleController.class.php 第 22 行.
+
+[ 2017-10-14T14:28:17+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:29:21+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:29:47+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0050s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:29:50+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0025s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:29:51+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0050s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+
+[ 2017-10-14T14:38:45+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0100s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0025s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.6375s ]
+SQL: select count(*) as num from blog [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 116 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-14T15:01:11+08:00 ] ::1 /shengu/Home/list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0100s ]
+SQL: SELECT * FROM `user` WHERE `user` = 'root' AND `pswd` = '63a9f0ea7bb98050796b649e85481845'  [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 21 行.
+NOTIC: [8] Undefined index: plat F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 28 行.
+SQL: select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name order by a.id desc limit 0,10 [ RunTime:0.5825s ]
+SQL: select count(*) as num from blog [ RunTime:0.0025s ]
+NOTIC: [8] Undefined index: page F:\wamp\www\shengu\Application\Home\Controller\ListController.class.php 第 116 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002500s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002500s ]
+
+[ 2017-10-14T15:06:54+08:00 ] ::1 /shengu/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0100s ]
+NOTIC: [8] Undefined index: user F:\wamp\www\shengu\Application\Home\Controller\LoginController.class.php 第 22 行.
+SQL: SELECT * FROM `user` WHERE `user` = null  [ RunTime:0.0025s ]
+
+[ 2017-10-14T15:29:41+08:00 ] ::1 /shengu/Home/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002500s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002500s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002500s ]
+SQL: SHOW COLUMNS FROM `user` [ RunTime:0.0100s ]
+NOTIC: [8] Undefined index: user F:\wamp\www\shengu\Application\Home\Controller\LoginController.class.php 第 22 行.
+SQL: SELECT * FROM `user` WHERE `user` = null  [ RunTime:0.0000s ]
+
+[ 2017-10-14T18:20:46+08:00 ] ::1 /shengu/Home/addCar
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `shopcar` [ RunTime:0.0000s ]
+NOTIC: [8] Undefined index: list F:\wamp\www\shengu\Application\Home\Controller\AddCarController.class.php 第 14 行.
+
+[ 2017-10-14T18:56:27+08:00 ] ::1 /shengu/Home/makeOrder
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.015600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015600s ]
+NOTIC: [8] Undefined index: id F:\wamp\www\shengu\Application\Home\Controller\MakeOrderController.class.php 第 14 行.
+
+[ 2017-10-14T18:56:34+08:00 ] ::1 /shengu/Home/delCar
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: id F:\wamp\www\shengu\Application\Home\Controller\DelCarController.class.php 第 14 行.
+
+[ 2017-10-14T20:08:01+08:00 ] ::1 /shengu/Home/addObj
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+SQL: SHOW COLUMNS FROM `obj` [ RunTime:0.0156s ]
+SQL: INSERT INTO `obj` (`name`,`status`) VALUES ('ttt','1') [ RunTime:0.0156s ]
+
+[ 2017-10-14T20:12:27+08:00 ] ::1 /shengu/Home/DelObj
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+SQL: SHOW COLUMNS FROM `obj` [ RunTime:0.0000s ]
+SQL: UPDATE `obj` SET `status`='-1' WHERE `name` = 'ttt' [ RunTime:0.0624s ]
+
+[ 2017-10-14T20:20:05+08:00 ] ::1 /shengu/Home/objList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `obj` [ RunTime:0.0000s ]
+SQL: SELECT * FROM `obj` WHERE `status` = -1  [ RunTime:0.0000s ]
+

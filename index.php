@@ -15,7 +15,7 @@
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 //允许跨域
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://192.168.199.161:8080");
 header('Access-Control-Allow-Headers:Authorization');
 header("Access-Control-Allow-Methods: GET, POST, DELETE");
 header("Access-Control-Allow-Credentials: true");

@@ -8,8 +8,8 @@ class LoginController extends Controller {
                 'data' => [
                     'code' => 1,
                     'info' => [
-                        'userName' => '',
-                        'passWord' => '',
+                        'user' => '',
+                        'pswd' => '',
                         'type' => ''
                 ],
                 'msg' => ''
@@ -20,21 +20,35 @@ class LoginController extends Controller {
         $user = M('User');
     	$item = $_POST;
         $data['user'] = $item['user'];
-        $a = $user->where($data)->select(); 
-        if(count($a) == 0){
+        $result = $user->where($data)->select(); 
+        if(!$result){
             $res['data']['code'] = 0;
             $res['msg'] = '用户名不存在';
-            echo json_encode($res);
-            return;
+            exit(json_encode($res));
         }
-    	if($a[0]['pswd'] == $item['pswd']){
-            $res['data']['code'] = 1;
-            $res['msg'] = '登录成功';
+    	if($result[0]['pswd'] == $item['pswd']){
+            if($result[0]['checked'] == 1){
+                $res['data']['code'] = 1;
+                $res['data']['info']['user'] = $result[0]['user'];
+                $res['data']['info']['pswd'] = $result[0]['pswd'];
+                $res['data']['info']['type'] = $result[0]['type'];
+                $res['msg'] = '登录成功';
+
+                session("shengu_user",'');
+                cookie("shengu_user",'');
+                cookie("shengu_pswd",'');
+
+                session("shengu_user",$item['user']);
+                cookie("shengu_user",$item['user']);
+                cookie("shengu_pswd",$item['pswd']);
+            }else{
+                $res['data']['code'] = 0;
+                $res['msg'] = '账户暂未通过审核！';
+            }
         }else{
             $res['data']['code'] = 0;
             $res['msg'] = '密码错误！';
         }
-           	
-    	echo json_encode($res);
+    	exit(json_encode($res));
     }
 }

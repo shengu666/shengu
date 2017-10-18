@@ -1,8 +1,9 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
+use Home\Controller\MiddleController;
 
-class ListController extends Controller {
+class ListController extends MiddleController {
 	public $res = [
                 'data' => [
                         'list' => [],
@@ -105,6 +106,7 @@ class ListController extends Controller {
             $count_sql = "select count(*) as num from blog";
             $data = M()->query($blog_sql);
             $count = M()->query($count_sql);
+            $plat = "weibo";
         }
         if(count($data) == 0){
             $res['code'] = 0;
@@ -119,10 +121,21 @@ class ListController extends Controller {
                 $page = 1;
                 $pageItem = 0;
             }
+            foreach ($data as $key => $value) {
+                $data[$key]['plat'] = $plat;
+                if($plat == "weibo"){
+                    $data[$key]['endprice'] = $value['disfirstpri'];
+                }else if($plat == "wexin"){
+                    $data[$key]['endprice'] = $value['disfirstreadpri'];
+                }else if($plat == "toutiao"){
+                    $data[$key]['endprice'] = $value['discountprice'];
+                }
+            }
+
             $res['code'] = 1;        
             $res['data']['list'] = $data;            
-            $res['data']['pageInfo']['page'] = $page;            
-            $res['data']['pageInfo']['cost'] = $count[0]['num'];            
+            $res['data']['pageInfo']['page'] = intval($page);            
+            $res['data']['pageInfo']['cost'] = intval($count[0]['num']);            
             $res['msg'] = 'success';
             echo json_encode($res);
         }
