@@ -23,7 +23,7 @@ class ReadExcelController extends Controller {
     	$type = $_GET['type'];
     	$file = $_GET['file'];
     	$data = [];
-
+    	
     	if($type == 0){
 	    	if($plat == 'weibo'){
 	    		$data = $this->init($this->readExcel(0,'N',$file),1);
@@ -39,17 +39,8 @@ class ReadExcelController extends Controller {
 	            echo json_encode($res);
 	            return;
 	        }else{
-	            if($_GET['page']){
-	                $page = $_GET['page'];
-	                $pageItem = ($page - 1) * 10;
-	            }else{
-	                $page = 1;
-	                $pageItem = 0;
-	            }
 	            $res['code'] = 1;
-	            $res['data']['list'] = array_slice($data[2],$pageItem,10);            
-	            $res['data']['pageInfo']['page'] = $page;            
-	            $res['data']['pageInfo']['cost'] = count($data);            
+	            $res['data']['list'] = $data[2];         
 	            $res['msg'] = 'success';
 	            echo json_encode($res);
 	        }
