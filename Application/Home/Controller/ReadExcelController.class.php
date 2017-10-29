@@ -77,7 +77,7 @@ class ReadExcelController extends Controller {
 	    		$res['msg'] = 'success';
 	    		echo json_encode($res);
 	    	}else{
-	    		$blog->rollback();
+	    		$M->rollback();
 	    		$res['code'] = 0;
 	    		$res['msg'] = '数据库写入失败';
 	    		echo json_encode($res);

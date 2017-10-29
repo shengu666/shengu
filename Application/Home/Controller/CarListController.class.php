@@ -13,10 +13,23 @@ class CarListController extends Controller {
     public function index(){
         $res = $this->res;
         if(cookie('shengu_user')){
-            $item['user'] = cookie('shengu_user');
-            //$item['status'] = 1;
             $M = M('shopcar');
-            $data = $M->where("status != -1")->order('id desc')->select();
+            $sql = "select * from shopcar group by oid order by time desc";
+            $words = M()->query($sql);
+            $list = $M->where("status = 1")->select();
+            $data = [];
+            foreach ($words as $key => $value) {
+                $item['oid'] = $value['oid'];
+                $item['user'] = $value['user'];
+                $item['time'] = $value['time'];
+                $item['children'] = [];
+                foreach ($list as $key2 => $value2) {
+                    if($value['oid'] == $value2['oid']){
+                        array_push($item['children'], $value2);
+                    }
+                }
+                array_push($data, $item);
+            }
         }
         if(count($data) == 0){
             $res['code'] = 0;

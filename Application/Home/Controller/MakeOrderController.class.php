@@ -11,9 +11,9 @@ class MakeOrderController extends Controller {
         $res = $this->res;
         $data = [];
 
-        if($_POST['id'] && $_POST['proj']){
+        if($_POST['oid'] && $_POST['proj']){
             $M = M('shopcar');
-            $id['id'] = $_POST['id'];
+            $id['oid'] = $_POST['oid'];
             $data['proj'] = $_POST['proj'];
             $data['status'] = 2;
             $result = $M->where($id)->save($data);

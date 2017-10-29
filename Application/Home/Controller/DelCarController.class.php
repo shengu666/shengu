@@ -11,10 +11,10 @@ class DelCarController extends Controller {
         $res = $this->res;
         $data = [];  
 
-        if($_POST['id']){
+        if($_POST['oid']){
             $M = M('shopcar');
-            $id['id'] = $_POST['id'];
-            $result = $M->where($id)->delete();
+            $oid['oid'] = $_POST['oid'];
+            $result = $M->where($oid)->delete();
             if($result){
                 $res['code'] = 1;                     
                 $res['msg'] = 'success';
