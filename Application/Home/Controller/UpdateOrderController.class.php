@@ -9,9 +9,9 @@ class UpdateOrderController extends Controller {
         ];
     public function index(){
         $res = $this->res;
-        if($_POST['param'] && $_POST['id']){
-            $id['id'] = $_POST['id'];
+        if($_POST['param']){
             $param = $_POST['param'];
+            $id['id'] = $param['id'];
             $M = M('shopcar');
             $order = $M->where($id)->select();
             $plat = $order[0]['plat'];
@@ -19,11 +19,15 @@ class UpdateOrderController extends Controller {
 
             $shopcar['actype'] = $param['actype'];
             $shopcar['pay'] = $param['pay'];
+            $shopcar['endprice'] = $param['endprice'];
             $shopcar['ispay'] = $param['ispay'];
+            $shopcar['url'] = $param['url'];
+            $shopcar['updatetime'] = time();
+            $prod['updatetime'] = time();
             $prod['discount'] = $param['discount'];
-
+            $prod['url'] = $param['url'];
             $M->startTrans();   //开启事务
-            $result1 = $M->where($pid)->save($shopcar);
+            $result1 = $M->where($id)->save($shopcar);
             if($plat == "weibo"){
                 $P = M('blogproviders');
                 $prod['disFirstPri'] = $param['endprice'];

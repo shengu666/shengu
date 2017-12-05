@@ -53,33 +53,39 @@ class ReadExcelController extends Controller {
 		    	$PD = "delete from blogproviders where cid not in (select cid from (select max(b.cid) as cid from blogproviders b group by b.pid) b)";
 	    	}else if($plat == 'weixin'){
 	    		$data = $this->init($this->readExcel(0,'Q',$file),2);
-	    		$we = M('wechat');
-		    	$wePro = M('wechatproviders');
+	    		$M = M('wechat');
+		    	$P = M('wechatproviders');
 
 		    	$MD = "delete from wechat where id not in (select id from (select max(b.id) as id from wechat b group by b.name) b)";
 		    	$PD = "delete from wechatproviders where cid not in (select cid from (select max(b.cid) as cid from wechatproviders b group by b.pid) b)";
 	    	}else if($plat == 'toutiao'){
 	    		$data = $this->init($this->readExcel(0,'K',$file),3);
-	    		$tou = M('toutiao');
-		    	$touPro = M('toutiaoproviders');
+	    		$M = M('toutiao');
+		    	$P = M('toutiaoproviders');
 
 		    	$MD = "delete from toutiao where id not in (select id from (select max(b.id) as id from toutiao b group by b.name) b)";
 		    	$PD = "delete from toutiaoproviders where cid not in (select cid from (select max(b.cid) as cid from toutiaoproviders b group by b.pid) b)";
 	    	}
 	    	$M->startTrans();	//开启事务
-	    	$result1 = $M->addAll($data[0]);
-	    	$result2 = $P->addAll($data[1]);
-	    	$result3 = $M->execute($MD);
-	    	$result4 = $P->execute($PD);
-	    	if($result1 >= 0 && $result2 >= 0 && $result3 >= 0 && $result4 >= 0){
-	    		$M->commit();
-	    		$res['code'] = 1;
-	    		$res['msg'] = 'success';
-	    		echo json_encode($res);
-	    	}else{
-	    		$M->rollback();
-	    		$res['code'] = 0;
-	    		$res['msg'] = '数据库写入失败';
+	    	try{
+		    	$result1 = $M->addAll($data[0]);
+		    	$result2 = $P->addAll($data[1]);
+		    	$result3 = $M->execute($MD);
+		    	$result4 = $P->execute($PD);
+		    	if($result1 >= 0 && $result2 >= 0 && $result3 >= 0 && $result4 >= 0){
+		    		$M->commit();
+		    		$res['code'] = 1;
+		    		$res['msg'] = 'success';
+		    		echo json_encode($res);
+		    	}else{
+		    		$M->rollback();
+		    		$res['code'] = 0;
+		    		$res['msg'] = '数据库写入失败';
+		    		echo json_encode($res);
+		    	}
+	    	}catch(\Exception $e){
+	    		$res['code'] = -1;
+	    		$res['msg'] = '数据有误，请检查。注意：excel请用微软雅黑字体。';
 	    		echo json_encode($res);
 	    	}
 
@@ -100,14 +106,14 @@ class ReadExcelController extends Controller {
 	    		$t['fans'] = $value[2];
 	    		$t['type'] = $value[10];
 
-	    		$d['firstPri'] = $value[3];
-	    		$d['secondPri'] = $value[4];
-	    		$d['proFirstPri'] = $value[5];
-	    		$d['proSecondPri'] = $value[6];
-	    		$d['disFirstPri'] = $value[5] * $value[9];
-	    		$d['disSecondPri'] = $value[6] * $value[9];
+	    		$d['firstpri'] = $value[3];
+	    		$d['secondpri'] = $value[4];
+	    		$d['profirstpri'] = $value[5];
+	    		$d['prosecondpri'] = $value[6];
+	    		$d['disfirstpri'] = $value[5] * $value[9];
+	    		$d['dissecondpri'] = $value[6] * $value[9];
 	    		$d['discount'] = $value[9];
-	    		$d['validTime'] = $value[11];
+	    		$d['validtime'] = $value[11];
 	    		$d['provider'] = $value[12];
 	    		$d['note'] = $value[13];
 	    		$d['pid'] = $value[0]."_".$value[12];
@@ -120,19 +126,19 @@ class ReadExcelController extends Controller {
 	    		$t['name'] = $value[0];
 	    		$t['account'] = $value[1];
 	    		$t['fans'] = $value[2];
-	    		$t['firstReadNum'] = $value[3];
+	    		$t['firstreadnum'] = $value[3];
 	    		$t['type'] = $value[13];
 	    		
-	    		$d['firstReadPri'] = $value[4];
-	    		$d['secondReadPri'] = $value[5];
-	    		$d['otherReadPri'] = $value[5] * 0.8;
-	    		$d['disFirstReadPri'] = $value[4] * $value[10];
-	    		$d['disSecondReadPri'] = $value[5] * $value[10];
-	    		$d['disOtherReadPri'] = $value[5] * 0.8 * $value[10];
+	    		$d['firstreadpri'] = $value[4];
+	    		$d['secondreadpri'] = $value[5];
+	    		$d['otherreadpri'] = $value[5] * 0.8;
+	    		$d['disfirstreadpri'] = $value[4] * $value[10];
+	    		$d['dissecondreadpri'] = $value[5] * $value[10];
+	    		$d['disotherreadpri'] = $value[5] * 0.8 * $value[10];
 	    		$d['discount'] = $value[10];
-	    		$d['publicNum'] = $value[11];
-	    		$d['publicTime'] = $value[12];
-	    		$d['validTime'] = $value[14];
+	    		$d['publicnum'] = $value[11];
+	    		$d['publictime'] = $value[12];
+	    		$d['validtime'] = $value[14];
 	    		$d['provider'] = $value[15];
 	    		$d['note'] = $value[16];
 	    		$d['pid'] = $value[0]."_".$value[15];
@@ -144,14 +150,14 @@ class ReadExcelController extends Controller {
 	    	foreach ($data as $value) {
 	    		$t['name'] = $value[0];
 	    		$t['url'] = $value[1];
-	    		$t['allReadNum'] = $value[2];
-	    		$t['averReadNum'] = $value[3];
+	    		$t['allreadnum'] = $value[2];
+	    		$t['averreadnum'] = $value[3];
 	    		$t['type'] = $value[7];
 	    		
 	    		$d['price'] = $value[4];
-	    		$d['discountPrice'] = $value[4] * $value[6];
+	    		$d['discountprice'] = $value[4] * $value[6];
 	    		$d['discount'] = $value[6];
-	    		$d['validTime'] = $value[8];
+	    		$d['validtime'] = $value[8];
 	    		$d['provider'] = $value[9];
 	    		$d['note'] = $value[10];
 	    		$d['pid'] = $value[0]."_".$value[9];

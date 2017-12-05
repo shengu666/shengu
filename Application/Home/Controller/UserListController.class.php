@@ -17,7 +17,7 @@ class UserListController extends Controller {
         ];
     public function index(){
         $res = $this->res;
-        $user_sql = "select user,time,type from user order by id desc";
+        $user_sql = "select user,time,type,checked from user order by id desc";
         $data = M()->query($user_sql);
         foreach ($data as $key=>$value) {
             $data[$key]['time'] = date('Y/m/d',$value['time']);

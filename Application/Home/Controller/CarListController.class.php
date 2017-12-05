@@ -14,7 +14,7 @@ class CarListController extends Controller {
         $res = $this->res;
         if(cookie('shengu_user')){
             $M = M('shopcar');
-            $sql = "select * from shopcar group by oid order by time desc";
+            $sql = "select * from shopcar where status=1 group by oid order by time desc";
             $words = M()->query($sql);
             $list = $M->where("status = 1")->select();
             $data = [];
@@ -30,6 +30,7 @@ class CarListController extends Controller {
                 }
                 array_push($data, $item);
             }
+
         }
         if(count($data) == 0){
             $res['code'] = 0;

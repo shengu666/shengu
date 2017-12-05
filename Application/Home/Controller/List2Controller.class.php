@@ -3,8 +3,8 @@ namespace Home\Controller;
 use Think\Controller;
 use Home\Controller\MiddleController;
 
-class ListController extends MiddleController {
-    public $res = [
+class List2Controller extends MiddleController {
+	public $res = [
                 'data' => [
                         'list' => [],
                         'pageInfo' => [
@@ -63,12 +63,12 @@ class ListController extends MiddleController {
                     }
                 }
 
-                    $blog_sql = "select * from temp a,blogproviders b where b.disfirstpri = (select min(c.disfirstpri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                    /*$count_sql = "select count(*) as num from (select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                    $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
+                $blog_sql = "select * from temp a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from (select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";
+                $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
                 M()->execute($temp);
                 $data = M()->query($blog_sql);
-                //$count = M()->query($count_sql);
+                $count = M()->query($count_sql);
             }else if($plat == 'weixin'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
@@ -87,12 +87,12 @@ class ListController extends MiddleController {
                     }
                 }
 
-                $wechat_sql = "select * from temp a,wechatproviders b where b.disfirstreadpri = (select min(c.disfirstreadpri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                /*$count_sql = "select count(*) as num from (select * from wechat a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                $temp = "CREATE TEMPORARY TABLE temp select * from wechat order by id desc limit ".$pageItem.",10";
+                $wechat_sql = "select * from temp a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from (select * from wechat a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";
+                $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
                 M()->execute($temp);
                 $data = M()->query($wechat_sql);
-                //$count = M()->query($count_sql);
+                $count = M()->query($count_sql);
             }else if($plat == 'toutiao'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
@@ -112,15 +112,15 @@ class ListController extends MiddleController {
                     $where .= " and averReadNum > ".$wnum[0]." and averReadNum < ".$wnum[1];
                 }
 
-                $toutiao_sql = "select * from temp a,toutiaoproviders b where b.discountprice = (select min(c.discountprice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                /*$count_sql = "select count(*) as num from (select * from toutiao a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                $temp = "CREATE TEMPORARY TABLE temp select * from toutiao order by id desc limit ".$pageItem.",10";
+                $toutiao_sql = "select * from temp a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name order by a.id desc limit ".$pageItem.",10";
+                $count_sql = "select count(*) as num from (select * from toutiao a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";
+                $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
                 M()->execute($temp);
                 $data = M()->query($toutiao_sql);
-                //$count = M()->query($count_sql);
+                $count = M()->query($count_sql);
             }
         }else{
-            $blog_sql = "select * from temp a,blogproviders b where b.disfirstpri = (select min(c.disfirstpri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name";
+            $blog_sql = "select * from temp a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name";
             $count_sql = "select count(*) as num from blog";
             $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
             M()->execute($temp);
@@ -155,7 +155,7 @@ class ListController extends MiddleController {
             $res['code'] = 1;        
             $res['data']['list'] = $data;            
             $res['data']['pageInfo']['page'] = intval($page);            
-            $res['data']['pageInfo']['cost'] = 1000;            
+            $res['data']['pageInfo']['cost'] = intval($count[0]['num']);            
             $res['msg'] = 'success';
             echo json_encode($res);
         }

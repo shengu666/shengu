@@ -29,6 +29,7 @@ class OrderListController extends Controller {
             $price = $_GET['price'];
             $time = $_GET['time'];
             $user = $_GET['user'];
+            $name = $_GET['name'];
 
             $where = "";
 
@@ -40,8 +41,16 @@ class OrderListController extends Controller {
             }
             if($price && $price != "all"){
                 $pnum = explode('a', $price);
-                $where .= " and pay > ".$pnum[0]." and pay < ".$pnum[1];
+                if($pnum[1] == "inify"){
+                    $where .= " and pay > ".$pnum[0];
+                }else{
+                    $where .= " and pay > ".$pnum[0]." and pay < ".$pnum[1];
+                }
             }
+            if($name && $name != 'all'){
+                $where .= " and proj like concat('%','".$name."','%') ";
+            }
+
             if($time && $time != "all"){
                 preg_match('/\d+/',$time,$item);
                 if(preg_match('/y/',$time)){
@@ -55,7 +64,7 @@ class OrderListController extends Controller {
             }
             $M = M('shopcar');
             $sql = "select * from shopcar where status=2 ".$where." order by time desc limit ".$pageItem.",10";
-            $count_sql = "select count(*) as num from shopcar where status=2";
+            $count_sql = "select count(*) as num from shopcar where status=2 ".$where;
             $data = M()->query($sql);
             $count = M()->query($count_sql);
         }

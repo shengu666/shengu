@@ -16,6 +16,7 @@ class MakeOrderController extends Controller {
             $id['oid'] = $_POST['oid'];
             $data['proj'] = $_POST['proj'];
             $data['status'] = 2;
+            $data['ispay'] = "未支付";
             $result = $M->where($id)->save($data);
             if($result){
                 $res['code'] = 1;                     
@@ -24,13 +25,13 @@ class MakeOrderController extends Controller {
                 exit;
             }else{
                 $res['code'] = 0;
-                $res['msg'] = '失败';
+                $res['msg'] = '通过失败';
                 echo json_encode($res);
                 exit;
             }
         }else{
             $res['code'] = 0;
-            $res['msg'] = '失败';
+            $res['msg'] = '参数不全';
             echo json_encode($res);
             exit;
         }
