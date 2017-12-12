@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 class UpdateOrderController extends Controller {
-	public $res = [
+    public $res = [
                 'code' => 1,
                 'msg' => ''
         ];
@@ -21,6 +21,7 @@ class UpdateOrderController extends Controller {
             $shopcar['pay'] = $param['pay'];
             $shopcar['endprice'] = $param['endprice'];
             $shopcar['ispay'] = $param['ispay'];
+            $shopcar['isfapiao'] = $param['isfapiao'];
             $shopcar['url'] = $param['url'];
             $shopcar['updatetime'] = time();
             $prod['updatetime'] = time();

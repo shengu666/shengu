@@ -3,7 +3,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 class MakeOrderController extends Controller {
-	public $res = [
+    public $res = [
                 'code' => 1,
                 'msg' => ''
             ];
@@ -17,6 +17,7 @@ class MakeOrderController extends Controller {
             $data['proj'] = $_POST['proj'];
             $data['status'] = 2;
             $data['ispay'] = "未支付";
+            $data['isfapiao'] = "未提交";
             $result = $M->where($id)->save($data);
             if($result){
                 $res['code'] = 1;                     

@@ -32,101 +32,126 @@ class ListController extends MiddleController {
             $weight = $_GET['weight'];
             $name = $_GET['name'];
 
-            /*$plat = 'weixin';
-            $chlid = '娱评人';
-            $price = '0a3500';
-            $weight = '0a100';*/
-            $where = "";
+            $whereC = "";
+            $whereF = "";
+            $wf = [];
+            $wc = [];
 
             if($chlid && $chlid != "all"){
-                $where .= " and type = '".$chlid."'";
+                array_push($wf,"type = '".$chlid."'");
             }
             if($name && $name != 'all'){
-                $where .= " and a.name like concat('%','".$name."','%') ";
+                array_push($wf,"name like concat('%','".$name."','%')");
+            }
+            if($wf){
+                $whereF = " where ".implode(' and ',$wf);
             }
 
             if($plat == 'weibo'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
                     if($pnum[1] == "inify"){
-                        $where .= " and disFirstPri > ".$pnum[0];
+                        array_push($wc,"disFirstPri > ".$pnum[0]);
                     }else{
-                        $where .= " and disFirstPri > ".$pnum[0]." and disFirstPri < ".$pnum[1];
+                        array_push($wc,"disFirstPri > ".$pnum[0]." and disFirstPri < ".$pnum[1]);
                     }
                 }
                 if($weight && $weight != "all"){
                     $wnum = explode('a', $weight);
-                    if($wnum[1] == 'max'){
-                        $where .= " and fans > ".$wnum[0];
+                    if($wnum[1] == 'inify'){
+                        array_push($wf,"fans > ".$wnum[0]);
                     }else{
-                        $where .= " and fans > ".$wnum[0]." and fans < ".$wnum[1];
+                        array_push($wf,"fans > ".$wnum[0]." and fans < ".$wnum[1]);
                     }
                 }
+                if($wc){
+                    $whereC = ' where '.implode(' and ',$wc);
+                }
+                if($wf){
+                    $whereF = " where ".implode(' and ',$wf);
+                }
 
-                    $blog_sql = "select * from temp a,blogproviders b where b.disfirstpri = (select min(c.disfirstpri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                    /*$count_sql = "select count(*) as num from (select * from blog a,blogproviders b where b.disFirstPri = (select min(c.disFirstPri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                    $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
+                $blog_sql = "select SQL_CALC_FOUND_ROWS * from temp a,temp2 b where a.name = b.fid order by a.id desc limit ".$pageItem.",10";
+
+                $temp = "CREATE TEMPORARY TABLE temp select * from blog ".$whereF;  
+                $temp2 = "CREATE TEMPORARY TABLE temp2 select min(disfirstpri) minpri,fid,firstpri,secondpri,profirstpri,prosecondpri,disfirstpri,dissecondpri,discount,validtime,provider,note,pid,updatetime from blogproviders ".$whereC." group by fid";
                 M()->execute($temp);
+                M()->execute($temp2);
                 $data = M()->query($blog_sql);
+                $count = M()->query("select FOUND_ROWS() num");
                 //$count = M()->query($count_sql);
             }else if($plat == 'weixin'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
                     if($pnum[1] == "inify"){
-                        $where .= " and disFirstReadPri > ".$pnum[0];
+                        array_push($wc,"disFirstReadPri > ".$pnum[0]);
                     }else{
-                        $where .= " and disFirstReadPri > ".$pnum[0]." and disFirstReadPri < ".$pnum[1];
+                        array_push($wc,"disFirstReadPri > ".$pnum[0]." and disFirstReadPri < ".$pnum[1]);
                     }
                 }
                 if($weight && $weight != "all"){
                     $wnum = explode('a', $weight);
-                    if($wnum[1] == 'max'){
-                        $where .= " and fans > ".$wnum[0];
+                    if($wnum[1] == 'inify'){
+                        array_push($wf,"fans > ".$wnum[0]);
                     }else{
-                        $where .= " and fans > ".$wnum[0]." and fans < ".$wnum[1];
+                        array_push($wf,"fans > ".$wnum[0]." and fans < ".$wnum[1]);
                     }
                 }
-
-                $wechat_sql = "select * from temp a,wechatproviders b where b.disfirstreadpri = (select min(c.disfirstreadpri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                /*$count_sql = "select count(*) as num from (select * from wechat a,wechatproviders b where b.disFirstReadPri = (select min(c.disFirstReadPri) from wechatproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                $temp = "CREATE TEMPORARY TABLE temp select * from wechat order by id desc limit ".$pageItem.",10";
+                if($wc){
+                    $whereC = ' where '.implode(' and ',$wc);
+                }
+                if($wf){
+                    $whereF = " where ".implode(' and ',$wf);
+                }
+                $wechat_sql = "select SQL_CALC_FOUND_ROWS * from temp a,temp2 b where a.name = b.fid order by a.id desc limit ".$pageItem.",10";
+                $temp = "CREATE TEMPORARY TABLE temp select * from wechat ".$whereF;                
+                $temp2 = "CREATE TEMPORARY TABLE temp2 select min(disfirstreadpri) minpri,fid,firstreadpri,secondreadpri,otherreadpri,disfirstreadpri,dissecondreadpri,disotherreadpri,discount,publicnum,publictime,validtime,provider,note,pid,updatetime from wechatproviders ".$whereC." group by fid";
                 M()->execute($temp);
+                M()->execute($temp2);
                 $data = M()->query($wechat_sql);
+                $count = M()->query("select FOUND_ROWS() num");
                 //$count = M()->query($count_sql);
             }else if($plat == 'toutiao'){
                 if($price && $price != "all"){
                     $pnum = explode('a', $price);
                     if($pnum[1] == "inify"){
-                        $where .= " and discountPrice > ".$pnum[0];
+                        array_push($wc,"discountPrice > ".$pnum[0]);
                     }else{
-                        $where .= " and discountPrice > ".$pnum[0]." and discountPrice < ".$pnum[1];
+                        array_push($wc,"discountPrice > ".$pnum[0]." and discountPrice < ".$pnum[1]);
                     }
                 }
                 if($weight && $weight != "all"){
                     $wnum = explode('a', $weight);
-                    if($wnum[1] == 'max'){
-                        $where .= " and averReadNum > ".$wnum[0];
+                    if($wnum[1] == 'inify'){
+                        array_push($wf,"averReadNum > ".$wnum[0]);
                     }else{
-                        $where .= " and averReadNum > ".$wnum[0]." and averReadNum < ".$wnum[1];
+                        array_push($wf,"averReadNum > ".$wnum[0]." and averReadNum < ".$wnum[1]);
                     }
-                    $where .= " and averReadNum > ".$wnum[0]." and averReadNum < ".$wnum[1];
+                }
+                if($wc){
+                    $whereC = ' where '.implode(' and ',$wc);
+                }
+                if($wf){
+                    $whereF = " where ".implode(' and ',$wf);
                 }
 
-                $toutiao_sql = "select * from temp a,toutiaoproviders b where b.discountprice = (select min(c.discountprice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name";
-                /*$count_sql = "select count(*) as num from (select * from toutiao a,toutiaoproviders b where b.discountPrice = (select min(c.discountPrice) from toutiaoproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') ".$where." group by a.name) num";*/
-                $temp = "CREATE TEMPORARY TABLE temp select * from toutiao order by id desc limit ".$pageItem.",10";
+                $toutiao_sql = "select SQL_CALC_FOUND_ROWS * from temp a,temp2 b where a.name = b.fid order by a.id desc limit ".$pageItem.",10";
+                $temp = "CREATE TEMPORARY TABLE temp select * from toutiao ".$whereF;  
+                $temp2 = "CREATE TEMPORARY TABLE temp2 select min(discountprice) minpri,fid,price,discountprice,discount,validtime,provider,note,pid,updatetime from toutiaoproviders ".$whereC." group by fid";
                 M()->execute($temp);
+                M()->execute($temp2);
                 $data = M()->query($toutiao_sql);
+                $count = M()->query("select FOUND_ROWS() num");
                 //$count = M()->query($count_sql);
             }
         }else{
-            $blog_sql = "select * from temp a,blogproviders b where b.disfirstpri = (select min(c.disfirstpri) from blogproviders c where c.pid like concat('%',a.name,'_%')) and b.pid like concat('%',a.name,'_%') group by a.name";
-            $count_sql = "select count(*) as num from blog";
-            $temp = "CREATE TEMPORARY TABLE temp select * from blog order by id desc limit ".$pageItem.",10";
+            $blog_sql = "select SQL_CALC_FOUND_ROWS * from temp a,temp2 b where a.name = b.fid order by a.id desc limit ".$pageItem.",10";
+            $temp = "CREATE TEMPORARY TABLE temp select * from blog";  
+            $temp2 = "CREATE TEMPORARY TABLE temp2 select min(disfirstpri) minpri,fid,firstpri,secondpri,profirstpri,prosecondpri,disfirstpri,dissecondpri,discount,validtime,provider,note,pid,updatetime from blogproviders group by fid";
             M()->execute($temp);
-
+            M()->execute($temp2);
             $data = M()->query($blog_sql);
-            $count = M()->query($count_sql);
+            $count = M()->query("select FOUND_ROWS() num");
             $plat = "weibo";
         }
         if(count($data) == 0){
@@ -155,7 +180,7 @@ class ListController extends MiddleController {
             $res['code'] = 1;        
             $res['data']['list'] = $data;            
             $res['data']['pageInfo']['page'] = intval($page);            
-            $res['data']['pageInfo']['cost'] = 1000;            
+            $res['data']['pageInfo']['cost'] = intval($count[0]['num']);            
             $res['msg'] = 'success';
             echo json_encode($res);
         }

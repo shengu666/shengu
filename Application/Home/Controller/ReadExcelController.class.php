@@ -42,6 +42,7 @@ class ReadExcelController extends Controller {
 	            $res['code'] = 1;
 	            $res['data']['list'] = $data[2];         
 	            $res['msg'] = 'success';
+	            $res['plat'] = $plat;
 	            echo json_encode($res);
 	        }
     	}else if($type == 1){
@@ -117,6 +118,7 @@ class ReadExcelController extends Controller {
 	    		$d['provider'] = $value[12];
 	    		$d['note'] = $value[13];
 	    		$d['pid'] = $value[0]."_".$value[12];
+	    		$d['fid'] = $value[0];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
 	    		array_push($item3, array_merge($t,$d));
@@ -142,6 +144,7 @@ class ReadExcelController extends Controller {
 	    		$d['provider'] = $value[15];
 	    		$d['note'] = $value[16];
 	    		$d['pid'] = $value[0]."_".$value[15];
+	    		$d['fid'] = $value[0];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
 	    		array_push($item3, array_merge($t,$d));
@@ -161,6 +164,7 @@ class ReadExcelController extends Controller {
 	    		$d['provider'] = $value[9];
 	    		$d['note'] = $value[10];
 	    		$d['pid'] = $value[0]."_".$value[9];
+	    		$d['fid'] = $value[0];
 	    		array_push($item, $t);
 	    		array_push($item2, $d);
 	    		array_push($item3, array_merge($t,$d));
