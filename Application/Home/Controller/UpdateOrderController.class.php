@@ -24,6 +24,8 @@ class UpdateOrderController extends Controller {
             $shopcar['isfapiao'] = $param['isfapiao'];
             $shopcar['url'] = $param['url'];
             $shopcar['updatetime'] = time();
+            $shopcar['discount'] = $param['discount'];
+            $shopcar['note'] = $param['note'];
             $prod['updatetime'] = time();
             $prod['discount'] = $param['discount'];
             $prod['url'] = $param['url'];
@@ -31,15 +33,15 @@ class UpdateOrderController extends Controller {
             $result1 = $M->where($id)->save($shopcar);
             if($plat == "weibo"){
                 $P = M('blogproviders');
-                $prod['disFirstPri'] = $param['endprice'];
+                $prod['disfirstpri'] = $param['endprice'];
                 $result2 = $P->where($pid)->save($prod);
-            }else if($palt == "weixin"){
+            }else if($plat == "weixin"){
                 $P = M('wechatproviders');
-                $prod['disFirstReadPri'] = $param['endprice'];
+                $prod['disfirstreadpri'] = $param['endprice'];
                 $result2 = $P->where($pid)->save($prod);
             }else if($plat == "toutiao"){
                 $P = M('toutiaoproviders');
-                $prod['discountPrice'] = $param['endprice'];
+                $prod['discountprice'] = $param['endprice'];
                 $result2 = $P->where($pid)->save($prod);
             }
             if($result1 && $result2){

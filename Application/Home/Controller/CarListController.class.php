@@ -12,7 +12,7 @@ class CarListController extends Controller {
         ];
     public function index(){
         $res = $this->res;
-        if(cookie('shengu_user')){
+        //if(cookie('shengu_user')){
             $M = M('shopcar');
             $sql = "select * from shopcar where status=1 group by oid order by time desc";
             $words = M()->query($sql);
@@ -31,7 +31,7 @@ class CarListController extends Controller {
                 array_push($data, $item);
             }
 
-        }
+        //}
         if(count($data) == 0){
             $res['code'] = 0;
             $res['msg'] = '没有数据';

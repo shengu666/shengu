@@ -17,7 +17,7 @@ class OrderListController extends Controller {
         ];
     public function index(){
         $res = $this->res;
-        if(cookie('shengu_user')){
+        //if(cookie('shengu_user')){
             if($_GET['page']){
                 $page = $_GET['page'];
                 $pageItem = ($page - 1) * 10;
@@ -67,7 +67,7 @@ class OrderListController extends Controller {
             $count_sql = "select count(*) as num from shopcar where status=2 ".$where;
             $data = M()->query($sql);
             $count = M()->query($count_sql);
-        }
+        //}
         if(count($data) == 0){
             $res['code'] = 0;
             $res['msg'] = '没有数据';
