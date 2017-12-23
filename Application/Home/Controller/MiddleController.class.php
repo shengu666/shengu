@@ -18,13 +18,13 @@ class MiddleController extends Controller {
                 if($result){
                     
                 }else{
-                    //exit(json_encode($res));
+                    exit(json_encode($res));
                 }
             }else{
-                //exit(json_encode($res));
+                exit(json_encode($res));
             }
         }else{
-            //exit(json_encode($res));
+            exit(json_encode($res));
         }
     }
 }
